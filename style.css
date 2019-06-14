@@ -40,12 +40,10 @@ nav{
     width:25px;
     height:25px;
 }
-.color-button-content{
-    width: 25px;
-    height: 25px;
-    background-color: aqua;
-}
-.color-chooser{
+
+#color-chooser{
     width:250px;
     height: 50px;
+    display: flex;
+    flex-direction: row;
 }

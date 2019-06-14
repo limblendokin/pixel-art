@@ -84,13 +84,15 @@ class PixelBoardView{
         var colorList=['FF0000', '00FF00', '0000FF'];
         this.colorChooser = document.getElementById('color-chooser');
         for(let i = 0; i<colorList.length; i++){
-            colorChooser.appendChild(createChooseColorButton(colorList[i]));
+            this.colorChooser.appendChild(this.createChooseColorButton(colorList[i]));
         }
         this.print();
     }
     createChooseColorButton(color){
         var colorButton = document.createElement('div');
         colorButton.style.backgroundColor = "#"+color;
+        colorButton.classList.add('color-button');
+        colorButton.addEventListener('click', ()=>this.pixelBoardModel.chooseColor(color));
         return colorButton;
     }
     print(){
