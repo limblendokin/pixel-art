@@ -16,6 +16,7 @@ ul{
 body{
     margin:0;
     padding:0;
+    background-color: violet;
 }
 
 nav{
@@ -33,12 +34,19 @@ nav{
     position: relative;
 }
 #control-panel{
-    width:300px;
-    height: 50px;
+    width:100%;
+    height: 100px;
+    background-color: lightgray;
+    border-radius: 5px;
+    border: 1px solid black;
+    display:flex;
 }
 .color-button{
     width:25px;
     height:25px;
+    margin: 5px;
+    border-radius: 50%;
+    border: 1px solid black;
 }
 
 #color-chooser{
@@ -46,4 +54,10 @@ nav{
     height: 50px;
     display: flex;
     flex-direction: row;
+    margin: 10px;
+    justify-content: start;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: lightgray;
 }

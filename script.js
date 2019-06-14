@@ -31,14 +31,14 @@ class PixelModel{
 class PixelBoardModel{
     constructor(pixelLengthX, pixelLengthY){
         this.inputType = "p"; // for "pixel"
-        this.chosenColor = "990000";
+        this.chosenColor = "FFFF00";
         this.pixelLengthX = pixelLengthX;
         this.pixelLengthY = pixelLengthY;
         this.board = new Array(pixelLengthY);
         for( let i = 0; i<this.pixelLengthY; i++){
             this.board[i] = new Array(this.pixelLengthX);
             for(let j = 0; j < this.pixelLengthX; j++){
-                this.board[i][j] = new PixelModel(i, j, 555555);
+                this.board[i][j] = new PixelModel(i, j, 'FFFFFF');
             }
         }
     }
