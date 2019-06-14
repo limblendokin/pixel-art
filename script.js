@@ -59,6 +59,9 @@ class PixelBoardModel{
             this.board[x][y].setColor(this.chosenColor);
         }
     }
+    chooseColor(color){
+        this.chosenColor=color;
+    }
 }
 class PixelBoardView{
     constructor(pixelBoardModel, controller){
@@ -78,7 +81,17 @@ class PixelBoardView{
             }
         }
         this.area = document.getElementById('pixel-board');
+        var colorList=['FF0000', '00FF00', '0000FF'];
+        this.colorChooser = document.getElementById('color-chooser');
+        for(let i = 0; i<colorList.length; i++){
+            colorChooser.appendChild(createChooseColorButton(colorList[i]));
+        }
         this.print();
+    }
+    createChooseColorButton(color){
+        var colorButton = document.createElement('div');
+        colorButton.style.backgroundColor = "#"+color;
+        return colorButton;
     }
     print(){
         this.area.innerHTML = '';
@@ -95,6 +108,9 @@ class Controller{
     }
     cellClickHandle(x,y){
         this.pixelBoardModel.performAction(x,y);
+    }
+    chooseColor(color){
+        this.pixelBoardModel.changeColor(color);
     }
 }
 var pixelBoardModel = new PixelBoardModel(10,10);
