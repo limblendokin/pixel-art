@@ -13,6 +13,7 @@ class PixelView{
         this.cell.style.backgroundColor = "#"+pixelModel.color;
     }
     getCell(){
+        this.cell.style.backgroundColor = "#"+this.pixelModel.color;
         return this.cell;
     }
 }
@@ -29,6 +30,8 @@ class PixelModel{
 }
 class PixelBoardModel{
     constructor(pixelLengthX, pixelLengthY){
+        this.inputType = "p"; // for "pixel"
+        this.chosenColor = "990000";
         this.pixelLengthX = pixelLengthX;
         this.pixelLengthY = pixelLengthY;
         this.board = new Array(pixelLengthY);
@@ -39,9 +42,6 @@ class PixelBoardModel{
             }
         }
     }
-    changeColor(x,y, hexValue){
-        board[x][y].setColor(hexValue);
-    }
     getPixelLengthY(){
         return this.pixelLengthY;
     }
@@ -50,6 +50,14 @@ class PixelBoardModel{
     }
     getPixelModel(x,y){
         return this.board[x][y];
+    }
+    getInputType(){
+        return this.inputType;
+    }
+    performAction(x,y){
+        if(this.inputType == "p"){
+            this.board[x][y].setColor(this.chosenColor);
+        }
     }
 }
 class PixelBoardView{
@@ -63,7 +71,10 @@ class PixelBoardView{
             this.pixelBoardView[i] = new Array(pixelLengthX);
             for(let j = 0; j<pixelLengthX; j++){
                 this.pixelBoardView[i][j] = new PixelView(this.pixelBoardModel.getPixelModel(i,j));
-                this.pixelBoardView[i][j].getCell().addEventListener("click", ()=>console.log("click"));
+                this.pixelBoardView[i][j].getCell().addEventListener("click", ()=>{
+                    this.controller.cellClickHandle(i, j);
+                    this.print();
+                });
             }
         }
         this.area = document.getElementById('pixel-board');
@@ -79,7 +90,12 @@ class PixelBoardView{
     }
 }
 class Controller{
-    
+    constructor(pixelBoardModel){
+        this.pixelBoardModel = pixelBoardModel;
+    }
+    cellClickHandle(x,y){
+        this.pixelBoardModel.performAction(x,y);
+    }
 }
-
-var pixelBoardView = new PixelBoardView(new PixelBoardModel(10,10), new Controller());
+var pixelBoardModel = new PixelBoardModel(10,10);
+var pixelBoardView = new PixelBoardView(pixelBoardModel, new Controller(pixelBoardModel));
