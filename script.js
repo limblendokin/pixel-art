@@ -1,15 +1,16 @@
 class PixelView{
-    contructor(pixelModel){
+    constructor(pixelModel){
         // hardcoded width and height of div
-        this.pixelWidth = 10;
-        this.pixelHeight = 10;
+        this.pixelWidth = 25;
+        this.pixelHeight = 25;
+        this.pixelModel = pixelModel;
         this.cell = document.createElement("div");
         this.cell.classList.add("pixel");
         this.cell.style.width = this.pixelWidth+"px";
         this.cell.style.height = this.pixelHeight+"px";
-        this.cell.style.top = this.pixelWidth*pixelModel.x + "px";
-        this.cell.style.left = this.pixelHeight*pixelModel.y + "px";
-        this.cell.style.backgroundColor = pixelModel.color;
+        this.cell.style.top = (this.pixelWidth+2)*pixelModel.x + "px";
+        this.cell.style.left = (this.pixelHeight+2)*pixelModel.y + "px";
+        this.cell.style.backgroundColor = "#"+pixelModel.color;
     }
     getCell(){
         return this.cell;
@@ -28,12 +29,12 @@ class PixelModel{
 }
 class PixelBoardModel{
     constructor(pixelLengthX, pixelLengthY){
-        this.width = pixelLengthX;
-        this.height = pixelLengthY;
+        this.pixelLengthX = pixelLengthX;
+        this.pixelLengthY = pixelLengthY;
         this.board = new Array(pixelLengthY);
-        for( let i = 0; i<pixelLengthY; i++){
-            this.board[i] = new Array(pixelLengthX);
-            for(let j = 0; j < pixelLengthX; j++){
+        for( let i = 0; i<this.pixelLengthY; i++){
+            this.board[i] = new Array(this.pixelLengthX);
+            for(let j = 0; j < this.pixelLengthX; j++){
                 this.board[i][j] = new PixelModel(i, j, 555555);
             }
         }
@@ -48,11 +49,11 @@ class PixelBoardModel{
         return this.pixelLengthX;
     }
     getPixelModel(x,y){
-        return this.board[x,y];
+        return this.board[x][y];
     }
 }
 class PixelBoardView{
-    contructor(pixelBoardModel, controller){
+    constructor(pixelBoardModel, controller){
         this.pixelBoardModel = pixelBoardModel;
         this.controller = controller;
         let pixelLengthY = this.pixelBoardModel.getPixelLengthY();
@@ -62,20 +63,23 @@ class PixelBoardView{
             this.pixelBoardView[i] = new Array(pixelLengthX);
             for(let j = 0; j<pixelLengthX; j++){
                 this.pixelBoardView[i][j] = new PixelView(this.pixelBoardModel.getPixelModel(i,j));
+                this.pixelBoardView[i][j].getCell().addEventListener("click", ()=>console.log("click"));
             }
         }
         this.area = document.getElementById('pixel-board');
+        this.print();
     }
     print(){
-        area.innerHTML = '';
-        for(let i = 0; i < this.height; i++){
-            for(let j = 0; j < this.width; j++){
-                this.area.appendChild(this.board[i][j].getCell());
+        this.area.innerHTML = '';
+        for(let i = 0; i < this.pixelBoardView.length; i++){
+            for(let j = 0; j < this.pixelBoardView[i].length; j++){
+                this.area.appendChild(this.pixelBoardView[i][j].getCell());
             }
         }
     }
 }
+class Controller{
+    
+}
 
-
-var pixelBoard = new PixelBoard(10,10);
-pixelBoard.print();
+var pixelBoardView = new PixelBoardView(new PixelBoardModel(10,10), new Controller());
