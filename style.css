@@ -1,0 +1,34 @@
+.centered-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex{
+    display: flex;
+}
+.flex-item{
+    padding: 5px;
+}
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+body{
+    margin:0;
+    padding:0;
+}
+
+nav{
+    background-color: lightgray;
+}
+
+.pixel{
+    position: absolute;
+}
+#pixel-board{
+    display: flex;
+    border:1px solid black;
+    height:1000px;
+    width:1000px;
+    position: relative;
+}
