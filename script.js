@@ -31,6 +31,7 @@ class PixelModel{
 class PixelBoardModel{
     constructor(pixelLengthX, pixelLengthY){
         this.inputType = "p"; // for "pixel"
+        this.mouseDown=false;
         this.chosenColor = "FFFF00";
         this.pixelLengthX = pixelLengthX;
         this.pixelLengthY = pixelLengthY;
@@ -55,7 +56,10 @@ class PixelBoardModel{
         return this.inputType;
     }
     performAction(x,y){
-        if(this.inputType == "p"){
+        // if(this.inputType == "p"){
+        //     this.board[x][y].setColor(this.chosenColor);
+        // }
+        if(this.mouseDown){
             this.board[x][y].setColor(this.chosenColor);
         }
     }
@@ -74,14 +78,28 @@ class PixelBoardView{
             this.pixelBoardView[i] = new Array(pixelLengthX);
             for(let j = 0; j<pixelLengthX; j++){
                 this.pixelBoardView[i][j] = new PixelView(this.pixelBoardModel.getPixelModel(i,j));
-                this.pixelBoardView[i][j].getCell().addEventListener("click", ()=>{
+                // this.pixelBoardView[i][j].getCell().addEventListener("click", ()=>{
+                //     this.controller.cellClickHandle(i, j);
+                //     this.print();
+                // });
+                this.pixelBoardView[i][j].getCell().addEventListener("mouseenter", ()=>{
                     this.controller.cellClickHandle(i, j);
                     this.print();
                 });
+                
             }
         }
         this.area = document.getElementById('pixel-board');
-        var colorList=['FF0000', '00FF00', '0000FF'];
+        document.getElementById('body').addEventListener("mousedown", ()=>{
+            this.controller.mouseDownHandle();
+            this.print();
+        });
+        document.getElementById('body').addEventListener("mouseup", ()=>{
+            this.controller.mouseUpHandle();
+            this.print();
+        });
+        var colorList=['101357', 'fea49f', 'fbaf08', '51d0de','bf4aa8','d9d9d9',
+                '0f2862', '9e363a', '091f36', '4f5f76'];
         this.colorChooser = document.getElementById('color-chooser');
         for(let i = 0; i<colorList.length; i++){
             this.colorChooser.appendChild(this.createChooseColorButton(colorList[i]));
@@ -114,6 +132,12 @@ class Controller{
     chooseColor(color){
         this.pixelBoardModel.changeColor(color);
     }
+    mouseDownHandle(){
+        this.pixelBoardModel.mouseDown = true;
+    }
+    mouseUpHandle(){
+        this.pixelBoardModel.mouseDown = false;
+    }
 }
-var pixelBoardModel = new PixelBoardModel(10,10);
+var pixelBoardModel = new PixelBoardModel(41,10);
 var pixelBoardView = new PixelBoardView(pixelBoardModel, new Controller(pixelBoardModel));

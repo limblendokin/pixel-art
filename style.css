@@ -1,26 +1,21 @@
-.centered-flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.flex{
-    display: flex;
-}
-.flex-item{
-    padding: 5px;
-}
-ul{
-    list-style-type: none;
-    padding: 0;
-}
+
 body{
     margin:0;
     padding:0;
-    background-color: violet;
+    background-color: gray;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
-nav{
-    background-color: lightgray;
+main{
+    background-color: #DCDCDC;
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px #505050;
+    padding:30px;
+    width: 70%;
+    height: 70%;
 }
 
 .pixel{
@@ -29,8 +24,7 @@ nav{
 #pixel-board{
     display: flex;
     height:300px;
-    width:300px;
-    margin:auto;
+    width:100%;
     position: relative;
 }
 #control-panel{
@@ -38,7 +32,6 @@ nav{
     height: 100px;
     background-color: lightgray;
     border-radius: 5px;
-    border: 1px solid black;
     display:flex;
 }
 .color-button{
@@ -50,14 +43,12 @@ nav{
 }
 
 #color-chooser{
-    width:250px;
+    width:80%;
     height: 50px;
     display: flex;
     flex-direction: row;
     margin: 10px;
     justify-content: start;
     align-items: center;
-    border: 1px solid black;
     border-radius: 5px;
-    background-color: lightgray;
 }
